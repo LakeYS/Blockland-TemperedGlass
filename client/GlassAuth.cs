@@ -480,7 +480,7 @@ function GlassAuth::updateDAASetting() {
 function GlassAuth::setUseDAA(%this) {
   %setting = GlassSettings.get("Auth::useDAA");
 
-  switch$(GlassSettings.get("Auth::useDAA")) {
+  switch$(%setting) {
     case "Always":
       GlassAuth.forceDAA = 1;
 
