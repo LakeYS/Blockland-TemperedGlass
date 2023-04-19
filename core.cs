@@ -3,11 +3,11 @@ function Glass::init(%context) {
 		new ScriptObject(Glass) {
 			version = "4.3.3-tempered2";
 			temperedPatchVersion = "2";
-			address = "api.blocklandglass.com"; //api address
-			netAddress = "blocklandglass.com"; //url address
+			address = "api.glass2.lakeys.net"; //api address
+			netAddress = "glass2.lakeys.net"; //url address
 			enableCLI = true;
 
-			liveAddress = "blocklandglass.com";
+			liveAddress = "glass2.lakeys.net";
 			livePort = 27002;
 		};
 	}

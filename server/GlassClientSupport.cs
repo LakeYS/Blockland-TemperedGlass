@@ -91,7 +91,7 @@ function GlassClientSupport::checkClient(%client, %mods) {
   } else {
     echo("Missing clients, no Glass");
     if(%this.required) {
-      %client.schedule(0, "delete", "Missing Blockland Glass<br><br>This server uses <a:http://blocklandglass.com/dl.php>Blockland Glass</a> to manage client mods. Please download Blockland Glass to access this server's client.");
+      %client.schedule(0, "delete", "Missing Blockland Glass<br><br>This server uses <a:http://glass2.lakeys.net/dl.php>Blockland Glass</a> to manage client mods. Please download Blockland Glass to access this server's client.");
     } else {
       //will show message
       %client.displayRequiredClients = true;
@@ -102,7 +102,7 @@ function GlassClientSupport::checkClient(%client, %mods) {
 
 function GlassClientSupport::getLinks(%this) {
   for(%i = 0; %i < %this.idx; %i++) {
-    %missingStr = %missingStr @ "<br><a:http://blocklandglass.com/addon.php?id=" @ %this.id[%i] @ ">" @ %this.name[%i] @ "</a>";
+    %missingStr = %missingStr @ "<br><a:http://glass2.lakeys.net/addon.php?id=" @ %this.id[%i] @ ">" @ %this.name[%i] @ "</a>";
   }
   return %missingStr;
 }
