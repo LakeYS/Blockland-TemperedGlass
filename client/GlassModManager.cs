@@ -585,7 +585,7 @@ package GlassModManager {
       if(strpos(%link, "aid-") != -1) {
         %id = getsubstr(%link, 4, strlen(%link)-4);
       }
-    } else if(strpos(%url, "glass2.lakeys.net/addons/addon.php?id=") != -1) {
+    } else if(strpos(%url, "blocklandglass.com/addons/addon.php?id=") != -1) {
       %id = getsubstr(%url, strpos(%url, "=") + 1, strlen(%url));
     } else {
       return parent::onURL(%this, %url);
