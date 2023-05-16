@@ -81,7 +81,10 @@ function GlassAuthS::startNewAuth(%this) {
   %downloadPath = "";
   %className = "GlassAuthServerTCP";
 
-  %tcp = connectToURL(%url, %method, %downloadPath, %className);
+  %options = new ScriptObject(TCPClientOptions) {
+    printErrors = !GlassAuthS.lastStatusIsTCPError;
+  };
+  %tcp = connectToURL(%url, %method, %downloadPath, %className, %options  );
 }
 
 function GlassAuthS::checkinDefault(%this) {
@@ -102,7 +105,11 @@ function GlassAuthS::checkinDefault(%this) {
   %downloadPath = "";
   %className = "GlassAuthServerTCP";
 
-  %tcp = connectToURL(%url, %method, %downloadPath, %className);
+  %options = new ScriptObject(TCPClientOptions) {
+    printErrors = !GlassAuthS.lastStatusIsTCPError;
+  };
+
+  %tcp = connectToURL(%url, %method, %downloadPath, %className, %options);
 }
 
 function GlassAuthS::validateIdentity(%this) {
@@ -227,20 +234,33 @@ function GlassAuthServerTCP::onDone(%this) {
           echo("Glass Error: " @ %this.buffer);
       }
 
+      GlassAuthS.lastStatus = GlassAuthS;
+      GlassAuthS.lastStatusIsTCPError = false;
+
 		} else {
-			echo("Glass Server Auth: \c2INVALID RESPONSE");
-      echo("Glass Error: " @ %this.buffer);
+      if(!GlassAuthS.lastStatusIsTCPError) {
+			  echo("Glass Server Auth: \c2INVALID RESPONSE");
+        echo("Glass Error: " @ %this.buffer);
+      }
 
       GlassAuthS.authing = false;
       GlassAuthS.schedule(10*1000, reident);
+
+      GlassAuthS.lastStatus = "invalid-response";
+      GlassAuthS.lastStatusIsTCPError = true;
 		}
 
 
 	} else {
-		echo("Glass Server Auth: \c2CONNECTION ERROR " @ %error);
+    if(!GlassAuthS.lastStatusIsTCPError) {
+		  echo("Glass Server Auth: \c2CONNECTION ERROR " @ %error);
+    }
 
     GlassAuthS.authing = false;
     GlassAuthS.schedule(10*1000, reident);
+
+    GlassAuthS.lastStatus = "connection-error";
+    GlassAuthS.lastStatusIsTCPError = true;
 	}
 }
 
