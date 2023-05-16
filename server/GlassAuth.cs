@@ -231,7 +231,9 @@ function GlassAuthServerTCP::onDone(%this) {
           GlassAuthS.reident();
         default:
           echo("Glass Server Auth: \c2UNKNOWN RESPONSE (" @ %object.status @ ")");
-          echo("Glass Error: " @ %this.buffer);
+          if(%this.buffer !$= "") {
+            echo("Glass Error: " @ %this.buffer);
+          }
       }
 
       GlassAuthS.lastStatus = GlassAuthS;
@@ -240,7 +242,9 @@ function GlassAuthServerTCP::onDone(%this) {
 		} else {
       if(!GlassAuthS.lastStatusIsTCPError) {
 			  echo("Glass Server Auth: \c2INVALID RESPONSE");
-        echo("Glass Error: " @ %this.buffer);
+          if(%this.buffer !$= "") {
+            echo("Glass Error: " @ %this.buffer);
+          }
       }
 
       GlassAuthS.authing = false;
